@@ -1,5 +1,5 @@
 const articleModel = require('../model/article');
-const config = require("../util/config");
+const config = require("../utils/config");
 
 module.exports = {
 	search: async (q) => {

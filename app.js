@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 require('dotenv').config();
-require('./util/mongo');
+require('./utils/mongo');
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
