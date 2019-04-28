@@ -7,6 +7,7 @@ const port = process.env.MONGO_PORT;
 const database = process.env.DATABASE;
 
 mongoose.connect('mongodb://' + username + ':' + password + '@' + host + ':' + port + '/' + database + '', {
+	useCreateIndex: true,
 	useNewUrlParser: true
 });
 
