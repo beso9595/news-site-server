@@ -16,4 +16,24 @@ router.post('/', async (req, res) => {
 	}
 });
 
+router.post('/login', async (req, res) => {
+	try {
+		let user = await userService.getByEmail(req.body.email);
+		if (!user) {
+			return res.status(401).end();
+		}
+		if (!userService.comparePasswords(req.body.password, user.password)) {
+			return res.status(401).end();
+		}
+		const token = userService.generateToken({
+			email: user.email,
+			firstName: user.firstName,
+			lastName: user.lastName
+		});
+		res.status(200).send(token);
+	} catch (ex) {
+		res.status(500).send(ex.message);
+	}
+});
+
 module.exports = router;
