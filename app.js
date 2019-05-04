@@ -7,6 +7,8 @@ require('./utils/mongo');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+app.use(require('./middleware/cors'));
+
 app.use('/', require('./routes/index'));
 app.use('/category/', require('./routes/category'));
 app.use('/article', require('./routes/article'));
