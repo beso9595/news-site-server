@@ -8,6 +8,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 app.use(require('./middleware/cors'));
+app.use(require('./middleware/error'));
 
 app.use('/', require('./routes/index'));
 app.use('/category/', require('./routes/category'));
