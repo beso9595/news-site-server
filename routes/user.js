@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
 	try {
 		let exists = await userService.exists(req.body.email);
 		if (exists) {
-			res.status(409).end();
+			res.sendStatus(409);
 		} else {
 			let record = await userService.add(req.body);
 			res.status(200).send(record);
@@ -20,10 +20,10 @@ router.post('/login', async (req, res) => {
 	try {
 		let user = await userService.getByEmail(req.body.email);
 		if (!user) {
-			return res.status(401).end();
+			return res.sendStatus(401);
 		}
 		if (!userService.comparePasswords(req.body.password, user.password)) {
-			return res.status(401).end();
+			return res.sendStatus(401);
 		}
 		const token = userService.generateToken({
 			email: user.email,

@@ -7,6 +7,6 @@ module.exports = (req, res, next) => {
 		req.userData = jwt.verify(token, config.tokenKey);
 		next();
 	} catch (error) {
-		return res.status(401).end();
+		return res.sendStatus(401);
 	}
 };
