@@ -25,12 +25,23 @@ router.post('/login', async (req, res) => {
 		if (!userService.comparePasswords(req.body.password, user.password)) {
 			return res.sendStatus(401);
 		}
-		const token = userService.generateToken({
+		let tokenObject = {
+			id: user.id,
 			email: user.email,
 			firstName: user.firstName,
 			lastName: user.lastName
-		});
+		};
+		const token = userService.generateToken(tokenObject);
 		res.status(200).send(token);
+	} catch (ex) {
+		res.status(500).send(ex.message);
+	}
+});
+
+router.post('/validate-token', async (req, res) => {
+	try {
+		let result = await userService.validateToken(req.body.token);
+		res.sendStatus(result ? 200 : 401);
 	} catch (ex) {
 		res.status(500).send(ex.message);
 	}

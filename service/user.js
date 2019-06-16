@@ -31,7 +31,17 @@ let services = {
 	},
 
 	generateToken(user) {
-		return jwt.sign(user, config.tokenKey, {expiresIn: '1h'});
+		return jwt.sign(user, config.tokenKey, {expiresIn: '1m'});
+	},
+
+	validateToken: async token => {
+		let decoded;
+		try {
+			decoded = jwt.verify(token, config.tokenKey);
+		} catch (ex) {
+			console.log(ex.message);
+		}
+		return !!decoded;
 	}
 };
 
